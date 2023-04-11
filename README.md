@@ -16,3 +16,4 @@
 
 - Use Apple maps API to get nearest grocery store.
 - Connect to API to get online prices of items.
+- OCR to scan receipts 

@@ -1,0 +1,22 @@
+//
+//  ChecklistView.swift
+//  GroceryList
+//
+//  Created by JPL-ST-SPRING2022 on 4/17/23.
+//
+
+import SwiftUI
+
+struct ChecklistView: View {
+    var body: some View {
+        NavigationView {
+            Text("Checklist")
+        }
+    }
+}
+
+struct ChecklistView_Previews: PreviewProvider {
+    static var previews: some View {
+        ChecklistView()
+    }
+}

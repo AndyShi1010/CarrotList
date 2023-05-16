@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B58714EC2A134E700063755B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58714EB2A134E700063755B /* LaunchScreen.storyboard */; };
+		B58714EE2A135AD40063755B /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714ED2A135AD40063755B /* ItemDetailsView.swift */; };
 		B5A82B132A134937001DC98E /* CarrotListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B122A134937001DC98E /* CarrotListApp.swift */; };
 		B5A82B152A134937001DC98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B142A134937001DC98E /* ContentView.swift */; };
 		B5A82B172A134939001DC98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A82B162A134939001DC98E /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		B58714EB2A134E700063755B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B58714ED2A135AD40063755B /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
 		B5A82B0F2A134937001DC98E /* CarrotList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarrotList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A82B122A134937001DC98E /* CarrotListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotListApp.swift; sourceTree = "<group>"; };
 		B5A82B142A134937001DC98E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				B5A82B2B2A134A64001DC98E /* StoresView.swift */,
 				B5A82B2D2A134A7F001DC98E /* ChecklistView.swift */,
 				B5A82B2F2A134A97001DC98E /* AddItemView.swift */,
+				B58714ED2A135AD40063755B /* ItemDetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				B5A82B262A1349B8001DC98E /* CoreDataItemsStore.swift in Sources */,
 				B5A82B152A134937001DC98E /* ContentView.swift in Sources */,
 				B5A82B282A134A01001DC98E /* GroceryItem.swift in Sources */,
+				B58714EE2A135AD40063755B /* ItemDetailsView.swift in Sources */,
 				B5A82B132A134937001DC98E /* CarrotListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -56,32 +56,39 @@ struct ItemsListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                List {
-                    ForEach(items, id: \.name) { item in
-                        ItemsListEntry(item)
+            
+            ZStack {
+                VStack {
+                    List {
+                        ForEach(items, id: \.self) { item in
+                            NavigationLink(destination: ItemDetailsView(item)) {
+                                ItemsListEntry(item)
+                            }
+                            
+                        }
+    //                    ItemsListEntry()
                     }
-//                    ItemsListEntry()
+                    .onAppear {
+                        items = store.fetch()
+                    }
+                    .padding(.top, 16)
                 }
-                .onAppear {
-                    items = store.fetch()
-                }
-                .padding(.top, 16)
-            }
-            .navigationTitle("Items")
-            .navigationBarItems(trailing:
-                Button(action: {
-                    showAddItemView = true
-                }, label: {
-                    Image(systemName: "plus")
-                    Text("Add Item")
+                .navigationTitle("Items")
+                .navigationBarItems(trailing:
+                    Button(action: {
+                        showAddItemView = true
+                    }, label: {
+                        Image(systemName: "plus")
+                        Text("Add Item")
+                    })
+                )
+                .sheet(isPresented: $showAddItemView, content: {
+                    AddItemView(showSheet: $showAddItemView) {
+                        items = store.fetch()
+                    }
                 })
-            )
-            .sheet(isPresented: $showAddItemView, content: {
-                AddItemView(showSheet: $showAddItemView) {
-                    items = store.fetch()
-                }
-            })
+            }
+            
         }
     }
     

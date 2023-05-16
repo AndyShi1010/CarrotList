@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct GroceryItem {
+struct GroceryItem: Hashable {
     let name: String
     let price: Double
     let priceHistory: [Date: Double]

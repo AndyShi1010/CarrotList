@@ -78,10 +78,14 @@ struct ItemsListView: View {
                 })
             )
             .sheet(isPresented: $showAddItemView, content: {
-                AddItemView(showSheet: $showAddItemView)
+                AddItemView(showSheet: $showAddItemView) {
+                    items = store.fetch()
+                }
             })
         }
     }
+    
+    
 }
 
 struct ItemsListView_Previews: PreviewProvider {

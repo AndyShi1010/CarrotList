@@ -18,6 +18,8 @@ struct AddItemView: View {
     @State private var dollars: Int = 0
     @State private var cents: Int = 0
     
+    let refresh: () -> Void
+    
     var body: some View {
         NavigationView {
             Form {
@@ -57,7 +59,6 @@ struct AddItemView: View {
                 leading:
                     Button("Discard") {
                         showSheet = false;
-                        // Handle discard button action
                     },
                 trailing:
                     Button("Save") {
@@ -66,7 +67,8 @@ struct AddItemView: View {
                         print(priceDouble)
                         print(priceHistory)
                         store.save(item: GroceryItem(name: itemName, price: priceDouble, priceHistory: priceHistory))
-                        // Handle save button action
+                        showSheet = false;
+                        refresh()
                     }
                     .disabled(self.itemName.isEmpty)
             )

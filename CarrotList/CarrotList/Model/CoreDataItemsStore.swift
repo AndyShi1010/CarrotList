@@ -28,16 +28,18 @@ struct CoreDataItemsStore: ItemStore {
     }()
     
     func fetch() -> [GroceryItem] {
-        print("FETCH")
         let managedContext = CoreDataItemsStore.persistentContainer.viewContext
 
         let fetchRequest = GroceryItemEntity.fetchRequest()
 
         do{
+            print("FETCH")
             let dbitems: [GroceryItemEntity] = try managedContext.fetch(fetchRequest)
+            print(dbitems)
             let groceryItems = dbitems.compactMap({(i:GroceryItemEntity) -> GroceryItem? in
-                return GroceryItem(i)
+                GroceryItem(i)
             })
+            return groceryItems
         } catch {
             print("Error fetching: \(error)");
             return []
@@ -46,14 +48,11 @@ struct CoreDataItemsStore: ItemStore {
     }
     
     func save(item: GroceryItem) {
-        print("SAVE")
         let managedContext = CoreDataItemsStore.persistentContainer.viewContext
         let _ = GroceryItemEntity(context: managedContext, item: item)
         do {
             try managedContext.save()
-        } catch {
-            print(error)
-        }
+        } catch { }
     }
     
     func delete(item: GroceryItem) {
@@ -74,7 +73,7 @@ extension GroceryItemEntity {
         currentPricePerUnit = item.price
         let jsonEncoder = JSONEncoder()
         priceHistory = String(data: try! jsonEncoder.encode(item.priceHistory), encoding: String.Encoding.utf8)
-//        print(priceHistory)
+        print(priceHistory)
 //        priceHistory = item.priceHistory
     }
 }

@@ -28,28 +28,32 @@ struct CoreDataItemsStore: ItemStore {
     }()
     
     func fetch() -> [GroceryItem] {
-//        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
-//
-//        let fetchRequest = GroceryItemEntity.fetchRequest()
-//
-//        do{
-//            let dbitems: [GroceryItemEntity] = try managedContext.fetch(fetchRequest)
-//            let groceryItems = dbitems.compactMap({(i:GroceryItemEntity) -> GroceryItem? in
-//                return GroceryItem(i)
-//            })
-//        } catch {
-//            print("Error fetching: \(error)");
-//            return []
-//        }
+        print("FETCH")
+        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
+
+        let fetchRequest = GroceryItemEntity.fetchRequest()
+
+        do{
+            let dbitems: [GroceryItemEntity] = try managedContext.fetch(fetchRequest)
+            let groceryItems = dbitems.compactMap({(i:GroceryItemEntity) -> GroceryItem? in
+                return GroceryItem(i)
+            })
+        } catch {
+            print("Error fetching: \(error)");
+            return []
+        }
         return []
     }
     
     func save(item: GroceryItem) {
-//        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
-//        let _ = GroceryItemEntity(context: managedContext, item: item)
-//        do {
-//            try managedContext.save()
-//        } catch { }
+        print("SAVE")
+        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
+        let _ = GroceryItemEntity(context: managedContext, item: item)
+        do {
+            try managedContext.save()
+        } catch {
+            print(error)
+        }
     }
     
     func delete(item: GroceryItem) {
@@ -62,15 +66,15 @@ struct CoreDataItemsStore: ItemStore {
     
 }
 
-//
-//extension GroceryItemEntity {
-//    convenience init(context: NSManagedObjectContext, item: GroceryItem) {
-//        self.init(context: context)
-//        name = item.name
-//        currentPricePerUnit = item.price
-//        let jsonEncoder = JSONEncoder()
-//        priceHistory = String(data: try! jsonEncoder.encode(item.priceHistory), encoding: String.Encoding.utf8)
+
+extension GroceryItemEntity {
+    convenience init(context: NSManagedObjectContext, item: GroceryItem) {
+        self.init(context: context)
+        name = item.name
+        currentPricePerUnit = item.price
+        let jsonEncoder = JSONEncoder()
+        priceHistory = String(data: try! jsonEncoder.encode(item.priceHistory), encoding: String.Encoding.utf8)
 //        print(priceHistory)
-////        priceHistory = item.priceHistory
-//    }
-//}
+//        priceHistory = item.priceHistory
+    }
+}

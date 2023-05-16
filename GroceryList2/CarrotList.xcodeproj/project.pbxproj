@@ -75,7 +75,6 @@
 				B5A82AD92A133C90001DC98E /* Model */,
 				B5A82AC62A133C0A001DC98E /* GroceryList2App.swift */,
 				B5A82ACA2A133C0C001DC98E /* Assets.xcassets */,
-				B5A82ACF2A133C0C001DC98E /* Persistence.swift */,
 				B5A82AD12A133C0C001DC98E /* GroceryList2.xcdatamodeld */,
 				B5A82ACC2A133C0C001DC98E /* Preview Content */,
 			);
@@ -93,6 +92,7 @@
 		B5A82AD92A133C90001DC98E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B5A82ACF2A133C0C001DC98E /* Persistence.swift */,
 				B5A82ADD2A133CD0001DC98E /* Groceries.xcdatamodeld */,
 				B5A82AE02A133D79001DC98E /* CoreDataItemsStore.swift */,
 				B5A82AE22A133DA7001DC98E /* GroceryItem.swift */,
@@ -148,7 +148,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B5A82ABE2A133C0A001DC98E /* Build configuration list for PBXProject "GroceryList2" */;
+			buildConfigurationList = B5A82ABE2A133C0A001DC98E /* Build configuration list for PBXProject "CarrotList" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -374,7 +374,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B5A82ABE2A133C0A001DC98E /* Build configuration list for PBXProject "GroceryList2" */ = {
+		B5A82ABE2A133C0A001DC98E /* Build configuration list for PBXProject "CarrotList" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B5A82AD42A133C0C001DC98E /* Debug */,

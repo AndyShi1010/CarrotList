@@ -12,7 +12,7 @@ protocol ItemStore {
     func fetch() -> [GroceryItem]
     func save(item: GroceryItem)
     func delete(item: GroceryItem)
-    func update(item: GroceryItem)
+//    func update(item: GroceryItem)
 }
 
 struct CoreDataItemsStore: ItemStore {
@@ -58,20 +58,57 @@ struct CoreDataItemsStore: ItemStore {
     func delete(item: GroceryItem) {
         let managedContext = CoreDataItemsStore.persistentContainer.viewContext
         let fetchRequest = GroceryItemEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "name = %@", item.name)
+        fetchRequest.predicate = NSPredicate(format: "id = %@", item.id.uuidString)
         do {
-            let items = try managedContext.fetch(fetchRequest)
-            for i in items {
-                managedContext.delete(i)
+            guard let item = try managedContext.fetch(fetchRequest).first else {
+                return
             }
+            managedContext.delete(item)
+//            for i in items {
+//                managedContext.delete(i)
+//            }
             try managedContext.save()
         } catch {
             print("Error deleting: \(error)")
         }
     }
     
-    func update(item: GroceryItem) {
-        
+    func pushNewPrice(item: GroceryItem, newPrice: Double) {
+        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
+        let fetchRequest = GroceryItemEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", item.id.uuidString)
+        do {
+            guard let item = try managedContext.fetch(fetchRequest).first,
+              var groceryItem = GroceryItem(item)
+            else {
+                return
+            }
+            groceryItem.priceHistory[Date()] = newPrice
+            groceryItem.price = newPrice
+            managedContext.delete(item)
+            try managedContext.save()
+            let _ = GroceryItemEntity(context: managedContext, item: groceryItem)
+            try managedContext.save()
+        } catch {
+            print("Error updating: \(error)")
+        }
+    }
+    
+    func fetchItem(id: UUID) -> GroceryItem? {
+        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
+        let fetchRequest = GroceryItemEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id.uuidString)
+        do {
+            guard let item = try managedContext.fetch(fetchRequest).first,
+                var groceryItem = GroceryItem(item)
+            else {
+                return nil
+            }
+            return groceryItem
+        } catch {
+            print("Error updating: \(error)")
+        }
+        return nil
     }
     
 }

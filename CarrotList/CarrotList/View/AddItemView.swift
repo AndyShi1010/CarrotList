@@ -65,7 +65,7 @@ struct AddItemView: View {
                         }
                     }
                 }
-                Section("Attributes") {
+                Section("Tags") {
                     List(selectableAttrs) { attr in
                         Button(action: {
                             if let index = selectableAttrs.firstIndex(where: { $0.id == attr.id }) {
@@ -110,7 +110,7 @@ struct AddItemView: View {
                     .disabled(self.itemName.isEmpty)
             )
             
-        }
+        }.accentColor(.orange)
     }
     func formatAsCurrency(_ main: Int, _ cents: Int) -> String? {
         let price: Double = Double(main) + Double(Double(cents) / 100)

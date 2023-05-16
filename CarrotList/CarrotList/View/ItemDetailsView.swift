@@ -6,26 +6,85 @@
 //
 
 import SwiftUI
+import Charts
 
 struct UpdatePriceView: View {
-    
-    @Binding var showSheet: Bool
-    
-    var body: some View {
-        Text("Hello World")
-    }
-}
-
-struct ItemDetailsView: View {
     
     let item: GroceryItem
     
     private let store: CoreDataItemsStore = CoreDataItemsStore()
     
-    init(_ groceryItem: GroceryItem) {
-        self.item = groceryItem
-        _itemPrice = State(initialValue: "")
+    @Binding var showSheet: Bool
+    
+    let refresh: () -> Void
+    
+    @State private var dollars: Int = 0
+    @State private var cents: Int = 0
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section("Price") {
+                    VStack {
+                        HStack{
+                            Text("Price")
+                            Spacer()
+                            Text(formatAsCurrency(dollars, cents) ?? "")
+                        }
+                        
+                        HStack {
+                            VStack {
+                                Picker(selection: $dollars, label: Text("Dollars")) {
+                                    ForEach(0..<100) { dollar in
+                                        Text("\(dollar)")
+                                    }
+                                }.pickerStyle(.wheel)
+                            }
+                            Text(".")
+                            VStack {
+                                Picker(selection: $cents, label: Text("Cents")) {
+                                    ForEach(0..<100) { cent in
+                                        Text("\(cent)")
+                                    }
+                                }.pickerStyle(.wheel)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle("Update Price", displayMode: .inline)
+            .navigationBarItems(
+                leading:
+                    Button("Discard") {
+                        showSheet = false;
+                    },
+                trailing:
+                    Button("Save") {
+                        let priceDouble: Double = Double(dollars) + Double(Double(cents) / 100)
+                        store.pushNewPrice(item: item, newPrice: priceDouble)
+                        refresh()
+                        showSheet = false;
+                    }
+            )
+        }
     }
+}
+
+struct ItemDetailsView: View {
+
+    
+    private let store: CoreDataItemsStore = CoreDataItemsStore()
+    
+    init(_ id: UUID) {
+        self.itemID = id
+        _itemPrice = State(initialValue: "")
+        _item = State(initialValue: GroceryItem())
+    }
+    
+    let itemID: UUID
+    
+    @State
+    private var item: GroceryItem
     
     @State
     private var itemPrice: String
@@ -40,7 +99,7 @@ struct ItemDetailsView: View {
     
     var body: some View {
         VStack{
-            Text("\(item.id)")
+//            Text("\(item.id)")
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(item.attributes, id: \.self) { attr in
@@ -49,6 +108,7 @@ struct ItemDetailsView: View {
                         .padding(.horizontal, 16)
                         .background(.orange)
                         .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
                 }
             }
@@ -64,23 +124,39 @@ struct ItemDetailsView: View {
                 Button(action: {
                     showUpdatePriceView = true
                 }, label: {
-                    Image(systemName: "plus")
+                    Image(systemName: "square.and.pencil")
                     Text("Update Price")
                 })
-                List {
-                    ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
-                        HStack {
-                            Text(date, style: .date)
-                            Spacer()
-                            Text(formatAsCurrency(price) ?? "")
+                VStack {
+                    Chart {
+                        ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
+                            LineMark(
+                                x: .value("Date", date),
+                                y: .value("Price", price)
+                            )
                         }
                     }
-                       
+                    .frame(height: 100)
+                    .padding(16)
+                    List {
+                        ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
+                            HStack {
+                                Text(date, style: .date)
+                                Spacer()
+                                Text(formatAsCurrency(price) ?? "")
+                            }
+                        }
+                        
+                    }
                 }
             }
             
         }
         .onAppear {
+            guard let updatedItem = store.fetchItem(id: itemID ) else {
+                return
+            }
+            item = updatedItem
             guard let formattedPrice = formatAsCurrency(item.price) else {
                 return
             }
@@ -105,17 +181,36 @@ struct ItemDetailsView: View {
                             
         )
         .sheet(isPresented: $showUpdatePriceView) {
-            UpdatePriceView(showSheet: $showUpdatePriceView)
-            .presentationDetents([.height(200)])
+            UpdatePriceView(item: item, showSheet: $showUpdatePriceView, refresh: {
+                guard let updatedItem = store.fetchItem(id: itemID) else {
+                    return
+                }
+                item = updatedItem
+                guard let formattedPrice = formatAsCurrency(item.price) else {
+                    return
+                }
+                itemPrice = formattedPrice
+            })
+            .presentationDetents([.height(400)])
         }
     }
     
-    func formatAsCurrency(_ value: Double) -> String? {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.currency
-        let number = NSNumber(value: value)
-        return formatter.string(from: number)
-    }
+}
+
+func formatAsCurrency(_ value: Double) -> String? {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = NumberFormatter.Style.currency
+    let number = NSNumber(value: value)
+    return formatter.string(from: number)
+}
+
+func formatAsCurrency(_ main: Int, _ cents: Int) -> String? {
+    let price: Double = Double(main) + Double(Double(cents) / 100)
+    print(price)
+    let formatter = NumberFormatter()
+    formatter.numberStyle = NumberFormatter.Style.currency
+    let number = NSNumber(value: price)
+    return formatter.string(from: number)
 }
 
 //struct ItemDetailsView_Previews: PreviewProvider {

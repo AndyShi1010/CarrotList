@@ -63,7 +63,7 @@ struct ItemsListView: View {
                     } else {
                         List {
                             ForEach(items, id: \.self) { item in
-                                NavigationLink(destination: ItemDetailsView(item)) {
+                                NavigationLink(destination: ItemDetailsView(item.id)) {
                                     ItemsListEntry(item)
                                 }
                                 

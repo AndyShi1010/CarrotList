@@ -11,8 +11,8 @@ import UIKit
 struct GroceryItem: Hashable, Identifiable {
     var id = UUID()
     let name: String
-    let price: Double
-    let priceHistory: [Date: Double]
+    var price: Double
+    var priceHistory: [Date: Double]
     let attributes: [String]
 //    let icon: UIImage
 }
@@ -32,5 +32,9 @@ extension GroceryItem {
         }
         let price = groceryItemEntity.currentPricePerUnit
         self = GroceryItem(id: uuid, name: name, price: price, priceHistory: priceHistory, attributes: attributes)
+    }
+    
+    init() {
+        self = GroceryItem(id: UUID(), name: "", price: 0, priceHistory: [Date(): 0], attributes: [])
     }
 }

@@ -56,7 +56,18 @@ struct CoreDataItemsStore: ItemStore {
     }
     
     func delete(item: GroceryItem) {
-        
+        let managedContext = CoreDataItemsStore.persistentContainer.viewContext
+        let fetchRequest = GroceryItemEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name = %@", item.name)
+        do {
+            let items = try managedContext.fetch(fetchRequest)
+            for i in items {
+                managedContext.delete(i)
+            }
+            try managedContext.save()
+        } catch {
+            print("Error deleting: \(error)")
+        }
     }
     
     func update(item: GroceryItem) {
@@ -69,11 +80,13 @@ struct CoreDataItemsStore: ItemStore {
 extension GroceryItemEntity {
     convenience init(context: NSManagedObjectContext, item: GroceryItem) {
         self.init(context: context)
+        id = item.id.uuidString
         name = item.name
         currentPricePerUnit = item.price
         let jsonEncoder = JSONEncoder()
         priceHistory = String(data: try! jsonEncoder.encode(item.priceHistory), encoding: String.Encoding.utf8)
-        print(priceHistory)
+        attributes = String(data: try! jsonEncoder.encode(item.attributes), encoding: String.Encoding.utf8)
+//        print(priceHistory)
 //        priceHistory = item.priceHistory
     }
 }

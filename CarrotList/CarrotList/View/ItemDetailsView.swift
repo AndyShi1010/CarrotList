@@ -16,16 +16,11 @@ struct UpdatePriceView: View {
     }
 }
 
-struct DeleteItemView: View {
-    @Binding var showSheet: Bool
-    
-    var body: some View {
-        
-    }
-}
-
 struct ItemDetailsView: View {
+    
     let item: GroceryItem
+    
+    private let store: CoreDataItemsStore = CoreDataItemsStore()
     
     init(_ groceryItem: GroceryItem) {
         self.item = groceryItem
@@ -38,8 +33,26 @@ struct ItemDetailsView: View {
     @State
     private var showUpdatePriceView = false
     
+    @State
+    private var showDeleteItemView = false
+    
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         VStack{
+            Text("\(item.id)")
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(item.attributes, id: \.self) { attr in
+                        Text("\(attr)")
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 16)
+                        .background(.orange)
+                        .foregroundColor(.white)
+                    }
+                }
+            }
+            .padding(.horizontal, 24)
             HStack {
                 Text("Current Price")
                 Spacer();
@@ -76,10 +89,20 @@ struct ItemDetailsView: View {
         .navigationTitle("\(item.name)")
         .navigationBarItems(trailing:
             Button(action: {
-                
+                showDeleteItemView = true
             }, label: {
                 Image(systemName: "trash")
             })
+            .confirmationDialog("Are you sure you want to delete this item?",
+                 isPresented: $showDeleteItemView) {
+                 Button("Delete item?", role: .destructive) {
+                     store.delete(item: item)
+                     presentationMode.wrappedValue.dismiss()
+                 }
+            } message: {
+                Text("Are you sure you want to delete this item?")
+            }
+                            
         )
         .sheet(isPresented: $showUpdatePriceView) {
             UpdatePriceView(showSheet: $showUpdatePriceView)

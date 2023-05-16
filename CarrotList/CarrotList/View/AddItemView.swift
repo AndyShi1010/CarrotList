@@ -6,9 +6,15 @@
 //
 
 import SwiftUI
-//import NumberWheeelPicker
+
+struct SelectableAttr: Identifiable {
+    let id = UUID()
+    let name: String
+    var isSelected: Bool = false
+}
 
 struct AddItemView: View {
+    
     
     private let store: CoreDataItemsStore = CoreDataItemsStore()
     
@@ -17,6 +23,12 @@ struct AddItemView: View {
     @State private var itemName: String = ""
     @State private var dollars: Int = 0
     @State private var cents: Int = 0
+    @State private var selectableAttrs: [SelectableAttr] = [
+        SelectableAttr(name: "Organic"),
+        SelectableAttr(name: "Gluten-Free"),
+        SelectableAttr(name: "Vegan"),
+        SelectableAttr(name: "Non-GMO")]
+    @State private var selectedAttrs: [String] = []
     
     let refresh: () -> Void
     
@@ -53,6 +65,23 @@ struct AddItemView: View {
                         }
                     }
                 }
+                Section("Attributes") {
+                    List(selectableAttrs) { attr in
+                        Button(action: {
+                            if let index = selectableAttrs.firstIndex(where: { $0.id == attr.id }) {
+                                selectableAttrs[index].isSelected.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Text(attr.name)
+                                Spacer()
+                                if attr.isSelected {
+                                    Image(systemName: "checkmark")
+                                }
+                            }
+                        }
+                    }
+                }
             }
             .navigationBarTitle("Add Item", displayMode: .inline)
             .navigationBarItems(
@@ -66,7 +95,15 @@ struct AddItemView: View {
                         let priceHistory = [Date() : priceDouble]
                         print(priceDouble)
                         print(priceHistory)
-                        store.save(item: GroceryItem(name: itemName, price: priceDouble, priceHistory: priceHistory))
+                        var selectedAttributes: [String] = [];
+                        for i in selectableAttrs {
+                            if (i.isSelected) {
+                                selectedAttributes.append(i.name)
+                                print(i.name)
+                            }
+                        }
+                        
+                        store.save(item: GroceryItem(name: itemName, price: priceDouble, priceHistory: priceHistory, attributes: selectedAttributes))
                         showSheet = false;
                         refresh()
                     }

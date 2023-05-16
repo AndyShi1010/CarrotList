@@ -8,24 +8,29 @@
 import Foundation
 import UIKit
 
-struct GroceryItem: Hashable {
+struct GroceryItem: Hashable, Identifiable {
+    var id = UUID()
     let name: String
     let price: Double
     let priceHistory: [Date: Double]
+    let attributes: [String]
 //    let icon: UIImage
 }
 
 extension GroceryItem {
     init?(_ groceryItemEntity: GroceryItemEntity) {
         guard
+            let uuid = UUID(uuidString: groceryItemEntity.id ?? ""),
             let name = groceryItemEntity.name,
             let priceHistoryData = groceryItemEntity.priceHistory?.data(using: .utf8),
-            let priceHistory = try? JSONDecoder().decode([Date: Double].self, from: priceHistoryData)
+            let priceHistory = try? JSONDecoder().decode([Date: Double].self, from: priceHistoryData),
+            let attributesData = groceryItemEntity.attributes?.data(using: .utf8),
+            let attributes = try? JSONDecoder().decode([String].self, from: attributesData)
 //            let icon = groceryItemEntity.icon
         else {
             return nil
         }
         let price = groceryItemEntity.currentPricePerUnit
-        self = GroceryItem(name: name, price: price, priceHistory: priceHistory)
+        self = GroceryItem(id: uuid, name: name, price: price, priceHistory: priceHistory, attributes: attributes)
     }
 }

@@ -21,11 +21,10 @@ struct ItemsListEntry: View {
     
     var body: some View {
         HStack{
-            Image(systemName: "carrot.fill")
             Text(groceryItem.name)
-                .bold()
             Spacer()
             Text(itemPrice)
+            .bold()
         }
         .onAppear {
             guard let formattedPrice = formatAsCurrency(groceryItem.price) else {
@@ -59,19 +58,21 @@ struct ItemsListView: View {
             
             ZStack {
                 VStack {
-                    List {
-                        ForEach(items, id: \.self) { item in
-                            NavigationLink(destination: ItemDetailsView(item)) {
-                                ItemsListEntry(item)
+                    if items.isEmpty {
+                        Text("You have no grocery items")
+                    } else {
+                        List {
+                            ForEach(items, id: \.self) { item in
+                                NavigationLink(destination: ItemDetailsView(item)) {
+                                    ItemsListEntry(item)
+                                }
+                                
                             }
-                            
                         }
-    //                    ItemsListEntry()
                     }
-                    .onAppear {
-                        items = store.fetch()
-                    }
-                    .padding(.top, 16)
+                }
+                .onAppear {
+                    items = store.fetch()
                 }
                 .navigationTitle("Items")
                 .navigationBarItems(trailing:

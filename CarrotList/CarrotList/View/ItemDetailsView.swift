@@ -127,30 +127,35 @@ struct ItemDetailsView: View {
                     Image(systemName: "square.and.pencil")
                     Text("Update Price")
                 })
-                VStack {
-                    Chart {
-                        ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
-                            LineMark(
-                                x: .value("Date", date),
-                                y: .value("Price", price)
-                            )
-                        }
-                    }
-                    .frame(height: 100)
-                    .padding(16)
-                    List {
-                        ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
-                            HStack {
-                                Text(date, style: .date)
-                                Spacer()
-                                Text(formatAsCurrency(price) ?? "")
+                if item.priceHistory.count < 2 {
+                    Text("There is no price history for this item.")
+                        .padding(.vertical, 32)
+                } else {
+                    VStack {
+                        Chart {
+                            ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
+                                LineMark(
+                                    x: .value("Date", date),
+                                    y: .value("Price", price)
+                                )
                             }
                         }
-                        
+                        .frame(height: 100)
+                        .padding(16)
+                        List {
+                            ForEach(item.priceHistory.sorted(by: >), id: \.key) { date, price in
+                                HStack {
+                                    Text(date, style: .date)
+                                    Spacer()
+                                    Text(formatAsCurrency(price) ?? "")
+                                }
+                            }
+                            
+                        }
                     }
                 }
             }
-            
+            Spacer()
         }
         .onAppear {
             guard let updatedItem = store.fetchItem(id: itemID ) else {

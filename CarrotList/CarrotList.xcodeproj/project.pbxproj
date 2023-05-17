@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		B58714EC2A134E700063755B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B58714EB2A134E700063755B /* LaunchScreen.storyboard */; };
 		B58714EE2A135AD40063755B /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714ED2A135AD40063755B /* ItemDetailsView.swift */; };
+		B58714F02A144F360063755B /* CoreDataChecklistStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714EF2A144F360063755B /* CoreDataChecklistStore.swift */; };
+		B58714F22A144F620063755B /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714F12A144F620063755B /* Checklist.swift */; };
+		B58714F42A144F990063755B /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714F32A144F990063755B /* ChecklistItem.swift */; };
+		B58714F62A14560A0063755B /* AddChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58714F52A14560A0063755B /* AddChecklistView.swift */; };
 		B5A82B132A134937001DC98E /* CarrotListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B122A134937001DC98E /* CarrotListApp.swift */; };
 		B5A82B152A134937001DC98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B142A134937001DC98E /* ContentView.swift */; };
 		B5A82B172A134939001DC98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5A82B162A134939001DC98E /* Assets.xcassets */; };
@@ -17,7 +21,6 @@
 		B5A82B262A1349B8001DC98E /* CoreDataItemsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B252A1349B8001DC98E /* CoreDataItemsStore.swift */; };
 		B5A82B282A134A01001DC98E /* GroceryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B272A134A01001DC98E /* GroceryItem.swift */; };
 		B5A82B2A2A134A48001DC98E /* ItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B292A134A48001DC98E /* ItemsListView.swift */; };
-		B5A82B2C2A134A64001DC98E /* StoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B2B2A134A64001DC98E /* StoresView.swift */; };
 		B5A82B2E2A134A7F001DC98E /* ChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B2D2A134A7F001DC98E /* ChecklistView.swift */; };
 		B5A82B302A134A97001DC98E /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A82B2F2A134A97001DC98E /* AddItemView.swift */; };
 /* End PBXBuildFile section */
@@ -25,6 +28,10 @@
 /* Begin PBXFileReference section */
 		B58714EB2A134E700063755B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B58714ED2A135AD40063755B /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
+		B58714EF2A144F360063755B /* CoreDataChecklistStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataChecklistStore.swift; sourceTree = "<group>"; };
+		B58714F12A144F620063755B /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
+		B58714F32A144F990063755B /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
+		B58714F52A14560A0063755B /* AddChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChecklistView.swift; sourceTree = "<group>"; };
 		B5A82B0F2A134937001DC98E /* CarrotList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarrotList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5A82B122A134937001DC98E /* CarrotListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrotListApp.swift; sourceTree = "<group>"; };
 		B5A82B142A134937001DC98E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,7 +41,6 @@
 		B5A82B252A1349B8001DC98E /* CoreDataItemsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataItemsStore.swift; sourceTree = "<group>"; };
 		B5A82B272A134A01001DC98E /* GroceryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroceryItem.swift; sourceTree = "<group>"; };
 		B5A82B292A134A48001DC98E /* ItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListView.swift; sourceTree = "<group>"; };
-		B5A82B2B2A134A64001DC98E /* StoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoresView.swift; sourceTree = "<group>"; };
 		B5A82B2D2A134A7F001DC98E /* ChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistView.swift; sourceTree = "<group>"; };
 		B5A82B2F2A134A97001DC98E /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +99,9 @@
 				B5A82B222A134974001DC98E /* Groceries.xcdatamodeld */,
 				B5A82B252A1349B8001DC98E /* CoreDataItemsStore.swift */,
 				B5A82B272A134A01001DC98E /* GroceryItem.swift */,
+				B58714EF2A144F360063755B /* CoreDataChecklistStore.swift */,
+				B58714F12A144F620063755B /* Checklist.swift */,
+				B58714F32A144F990063755B /* ChecklistItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -102,10 +111,10 @@
 			children = (
 				B5A82B142A134937001DC98E /* ContentView.swift */,
 				B5A82B292A134A48001DC98E /* ItemsListView.swift */,
-				B5A82B2B2A134A64001DC98E /* StoresView.swift */,
 				B5A82B2D2A134A7F001DC98E /* ChecklistView.swift */,
 				B5A82B2F2A134A97001DC98E /* AddItemView.swift */,
 				B58714ED2A135AD40063755B /* ItemDetailsView.swift */,
+				B58714F52A14560A0063755B /* AddChecklistView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -183,14 +192,17 @@
 			files = (
 				B5A82B242A134974001DC98E /* Groceries.xcdatamodeld in Sources */,
 				B5A82B302A134A97001DC98E /* AddItemView.swift in Sources */,
-				B5A82B2C2A134A64001DC98E /* StoresView.swift in Sources */,
 				B5A82B2A2A134A48001DC98E /* ItemsListView.swift in Sources */,
 				B5A82B2E2A134A7F001DC98E /* ChecklistView.swift in Sources */,
 				B5A82B262A1349B8001DC98E /* CoreDataItemsStore.swift in Sources */,
 				B5A82B152A134937001DC98E /* ContentView.swift in Sources */,
 				B5A82B282A134A01001DC98E /* GroceryItem.swift in Sources */,
+				B58714F42A144F990063755B /* ChecklistItem.swift in Sources */,
+				B58714F62A14560A0063755B /* AddChecklistView.swift in Sources */,
 				B58714EE2A135AD40063755B /* ItemDetailsView.swift in Sources */,
 				B5A82B132A134937001DC98E /* CarrotListApp.swift in Sources */,
+				B58714F22A144F620063755B /* Checklist.swift in Sources */,
+				B58714F02A144F360063755B /* CoreDataChecklistStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

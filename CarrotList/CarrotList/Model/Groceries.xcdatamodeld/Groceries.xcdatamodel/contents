@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChecklistEntity" representedClassName="ChecklistEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="checklistItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ChecklistItemEntity"/>
+    </entity>
+    <entity name="ChecklistItemEntity" representedClassName="ChecklistItemEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="isDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="groceryItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroceryItemEntity" inverseName="checklist" inverseEntity="GroceryItemEntity"/>
+    </entity>
     <entity name="GroceryItemEntity" representedClassName="GroceryItemEntity" syncable="YES" codeGenerationType="class">
         <attribute name="attributes" optional="YES" attributeType="String"/>
         <attribute name="currentPricePerUnit" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="priceHistory" optional="YES" attributeType="String"/>
+        <relationship name="checklist" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ChecklistItemEntity" inverseName="groceryItem" inverseEntity="ChecklistItemEntity"/>
     </entity>
 </model>

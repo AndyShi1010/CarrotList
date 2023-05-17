@@ -35,7 +35,7 @@ struct CoreDataItemsStore: ItemStore {
         do{
             print("FETCH")
             let dbitems: [GroceryItemEntity] = try managedContext.fetch(fetchRequest)
-            print(dbitems)
+//            print(dbitems)
             let groceryItems = dbitems.compactMap({(i:GroceryItemEntity) -> GroceryItem? in
                 GroceryItem(i)
             })

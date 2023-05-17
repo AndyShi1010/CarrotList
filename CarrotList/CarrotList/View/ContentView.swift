@@ -21,20 +21,13 @@ struct ContentView: View {
                     Text("Items")
                 }
                 .tag(0)
-            StoresView()
-                .tabItem {
-                    Image(systemName: "basket")
-                        .renderingMode(.template)
-                    Text("Stores")
-                }
-                .tag(1)
             ChecklistView()
                 .tabItem {
                     Image(systemName: "checklist")
                         .renderingMode(.template)
                     Text("Checklist")
                 }
-                .tag(2)
+                .tag(1)
         }.accentColor(.orange)
             
     }
